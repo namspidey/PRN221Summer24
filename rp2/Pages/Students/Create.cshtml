@@ -1,0 +1,50 @@
+﻿@page
+@model rp2.Pages.Students.CreateModel
+@{
+}
+
+<form method="post">
+    <table>
+        <tr>
+            <td>Id</td>
+            <td><input type="text" asp-for="St.Id" /></td>
+           
+
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" asp-for="St.Name" /></td>
+
+
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td><input type="checkbox" asp-for="St.Gender" />Male/Female</td>
+
+
+        </tr>
+        <tr>
+            <td>Department</td>
+            <td>
+                <select asp-for="St.DepartId" asp-items="ViewBag.dept">
+
+                </select>
+            </td>
+
+
+        </tr>
+        <tr>
+            <td>DOB</td>
+            <td><input type="date" asp-for="St.Dob" /></td>
+
+
+        </tr>
+        <tr>
+            <td>GPA</td>
+            <td><input type="text" asp-for="St.Gpa" /></td>
+
+
+        </tr>
+    </table>
+    <input type="submit" value="Create" />
+</form>

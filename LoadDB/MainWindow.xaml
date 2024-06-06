@@ -1,0 +1,75 @@
+﻿<Window x:Class="LoadDB.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LoadDB"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Column="0" Name="dgvDisplay" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="MSSV" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Fullname" Binding="{Binding Name}"/>
+                <DataGridCheckBoxColumn Header="Gender" Binding="{Binding Gender}"/>
+                <DataGridTextColumn Header="Department" Binding="{Binding Depart.Name}"/>
+                <DataGridTextColumn Header="Date of Birth" Binding="{Binding Dob}"/>
+                <DataGridTextColumn Header="Average Mark" Binding="{Binding Gpa}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Column="1">
+        <!--  -->
+        <Grid>
+                <StackPanel HorizontalAlignment="Left" >
+                    <Label>Filter Department</Label>
+                    <ComboBox Name="cbxDepart" ItemsSource="{Binding Department}" DisplayMemberPath="Name" SelectedValuePath="Id" SelectionChanged="cbxDepart_SelectionChanged" />
+                    <Label>Filter Sex</Label>
+                    <RadioButton x:Name="rdbFe" Content="Female" Checked="rdbFe_Checked"  ></RadioButton>
+                    <RadioButton x:Name="rdbMa" Content="Male" Checked="rdbMa_Checked"></RadioButton>
+                    <Label>Search by name</Label>
+                    <TextBox x:Name="txtNameContain" TextChanged="txtNameContain_TextChanged"></TextBox>
+                    <Button Name="btnReset" Click="btnReset_Click"  >Reset</Button>
+                </StackPanel>
+            </Grid>
+            <Grid>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="50">ID</Label>
+                        <TextBox Name="txtID" Width="200" Text="{Binding Path=SelectedItem.Id, ElementName=dgvDisplay, Mode=OneWay}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="50">Name</Label>
+                        <TextBox Name="txtName" Width="200" Text="{Binding Path=SelectedItem.Name, ElementName=dgvDisplay, Mode=OneWay}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="50">Gender</Label>
+                        <CheckBox Name="chkGender" VerticalAlignment="Center" IsChecked="{Binding Path=SelectedItem.Gender, ElementName=dgvDisplay, Mode=OneWay}">Male/Female</CheckBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="50">Depart</Label>
+                        <ComboBox Name="cbxDepartName" ItemsSource="{Binding Department}" DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding Path=SelectedItem.Depart.Id, ElementName=dgvDisplay, Mode=OneWay}"></ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="50">DOB</Label>
+                        <DatePicker Name="dpkDOB" Width="200" SelectedDate="{Binding Path=SelectedItem.Dob, ElementName=dgvDisplay, Mode=OneWay}"></DatePicker>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="50">GPA</Label>
+                        <TextBox Name="txtGPA" Width="200" Text="{Binding Path=SelectedItem.Gpa, ElementName=dgvDisplay, Mode=OneWay}"></TextBox>
+                    </StackPanel>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="bntInsert" HorizontalAlignment="Left" Click="bntInsert_Click">Insert</Button>
+                            <Button Name="bntUpdate" HorizontalAlignment="Center" Click="bntUpdate_Click">Update</Button>
+                            <Button Name="bntDelete" HorizontalAlignment="Right" Click="bntDelete_Click">Delete</Button>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

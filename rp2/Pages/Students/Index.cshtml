@@ -1,0 +1,64 @@
+﻿@page
+@model rp2.Pages.Students.IndexModel
+@{
+}
+
+<form method="post" onclick="MySubmit" id="frm">
+    <input type="checkbox" name="All" value="All" checked='@ViewBag.select.Contains("All")' 
+        onclick="myFun()" />All<br />
+    @foreach(var de in Model.Dept)
+    {
+        <input name=@de.Id type="checkbox" value=@de.Id checked='@ViewBag.select.Contains(de.Id)' onclick="myFun()" />
+
+        @de.Name
+
+        <br />
+
+    }
+    <input type="submit" name="Filter" id="btnSubmit" hidden />
+</form>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Radio</th>
+       <th></th>
+        <th>Depart</th>
+        <th>DOB</th>
+        <th>GPA</th>
+
+    </tr>
+
+    @foreach (var st in Model.Std)
+    {
+        <tr>
+            <td>@st.Id</td>
+            <td>@st.Name</td>
+            <td>@(st.Gender ? "Male" : "Female")</td>
+            <td><input type="checkbox" name="chk" @(st.Gender ? "checked" : "") />@(st.Gender ? "Male" : "Female")</td>
+            <td><input type="radio" name=@("rdb"+st.Id) value="M" @(st.Gender ? "checked" : "") />Male</td>
+            <td><input type="radio" name=@("rdb"+st.Id) value="F" @(st.Gender ? "" : "checked") />Female</td>
+            <td>
+                <select name="gender">
+                    <option selected=@st.Gender>Male</option>
+                    <option selected=@(!st.Gender)>Female</option>
+                </select>
+            </td>
+            <td>@st.DepartId</td>
+            <td>@st.Dob</td>
+            <td>@st.Gpa</td>
+
+        </tr>
+    }
+</table>
+
+            <script>
+                function MySubmit() {
+                    document.getElementById("frm").submit();
+                }
+
+                function myFun() {
+                    document.getElementById("btnSubmit").click();
+                }
+            </script>
